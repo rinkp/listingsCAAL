@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\usepackage{listingsCAAL}
+\lstset{style=CAALenhanced}
+
+\begin{document}
+
+\section{Caal Example Simple Communication}
+Example from CAAL webtool\footnote{https://github.com/CAAL/CAAL/blob/703ef83deadff10938ef99132381d6dbc34e4413/src/gui/examples.ts}.
+\begin{lstlisting}
+* Peterson's algorithm for mutual exclusion.
+* See Chapter 7 of "Reactive Systems" for a full description.
+
+B1f = 'b1rf.B1f + b1wf.B1f + b1wt.B1t;
+B1t = 'b1rt.B1t + b1wf.B1f + b1wt.B1t;
+
+B2f = 'b2rf.B2f + b2wf.B2f + b2wt.B2t;
+B2t = 'b2rt.B2t + b2wf.B2f + b2wt.B2t;
+
+K1 = 'kr1.K1 + kw1.K1 + kw2.K2;
+K2 = 'kr2.K2 + kw1.K1 + kw2.K2;
+
+P1 = 'b1wt.'kw2.P11;
+P11 = b2rf.P12 + b2rt.(kr2.P11 + kr1.P12);
+P12 = enter1.exit1.'b1wf.P1;
+
+P2 = 'b2wt.'kw1.P21;
+P21 = b1rf.P22 + b1rt.(kr1.P21 + kr2.P22);
+P22 = enter2.exit2.'b2wf.P2;
+
+set L = {b1rf, b2rf, b1rt, b2rt, b1wf, b2wf, b1wt, b2wt, kr1, kr2, kw1, kw2};
+Peterson = (P1 | P2 | B1f | B2f | K1) \ L;
+
+Spec = enter1.exit1.Spec + enter2.exit2.Spec;
+\end{lstlisting}
+
+\noindent{}Not only can we print CCS implementations, we can also define HML formulas such as
+\lstinline{MutualExclusion max= [[enter1]][[enter2]]ff and [[enter2]][[enter1]]ff and [-]MutualExclusion;}, an invariant property that guarantees that immediately after enter1 it is not possible to perform enter2 and vice versa. We can use CAAL to show \lstinline{Peterson} $\models$ \lstinline{MutualExclusion}.
+\end{document}

@@ -1,0 +1,61 @@
+%%
+%% This is file `listingsCAAL.sty'.
+%% Contained in the listingsCAAL package, v0.1
+%%
+%% We require process names to contain only alphanumeric characters,
+%% in special a single apostrophe is not allowed in process names
+%%
+
+%%
+%% CAAL definition
+%% See https://github.com/CAAL/CAAL
+%%
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{listingsCAAL}[2020/06/01 Listings language and style for CAAL]
+
+\RequirePackage{xcolor}
+\RequirePackage{listings}
+
+\providecommand*{\lstnumberautorefname}{Line}
+
+\definecolor{caalgreen}{rgb}{0,0.6,0}
+\definecolor{caalgray}{rgb}{0.5,0.5,0.5}
+\definecolor{caalpurple}{rgb}{0.58,0,0.82}
+\definecolor{caalblue}{rgb}{0,0,1}
+
+% Command used for overline of negative actions
+\newcommand*{\addbar}[1]{$\overline{\hbox{'#1}}\m@th$.\relax}%Relax for forgetting .
+
+\lstdefinelanguage{caal}{%
+    sensitive,%All is case sensitive
+    otherkeywords={<, >, \[, \], max=, min=, +, |, \\, /, <->, 0},%Special characters we are going to use as keyword
+    keywords=[1]{set,tau},%
+    keywordstyle=[1]{\color{caalgray}},%
+    keywords=[2]{<, >, \[, \], max=, and, or, +, |, \\, /, <->},%
+    keywordstyle=[2]{\color{caalblue}},%
+    keywords=[3]{tt,ff},%
+    keywordstyle=[3]{\sffamily\bfseries},%
+    keywords=[4]{0},%
+    keywordstyle=[4]{\em},
+    comment=[l]*,%Caal comments are printed
+    commentstyle=\color{caalgreen},%Comments in green
+    moredelim=[is][\addbar]{'}{.},%
+    showspaces=false,%
+    breakatwhitespace=false,%
+    breaklines=true,%
+    showstringspaces=false,%
+    keepspaces=true,%
+    showtabs=false,%               
+    tabsize=2,%
+  }[keywords,comments,strings]%
+  
+\lstdefinestyle{CAALenhanced}{%
+    language=caal,
+    basicstyle=\ttfamily\footnotesize,%
+    numberstyle=\tiny\color{caalgray},%            
+    numbers=left,%
+    numbersep=5pt,%
+    captionpos=b,%
+    mathescape=true,%
+    escapechar=*@,%
+}

@@ -1,0 +1,5 @@
+# Want regeleindes, maar niet voor pdfjes
+* text=auto
+*.pdf binary
+
+stationery/*		linguist-vendored=false
